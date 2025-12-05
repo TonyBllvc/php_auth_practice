@@ -3,12 +3,16 @@
     session_start();
 
     // example on usage
-    include 'database/index.php';    // Get DB connection (sets up DB if needed)
-    include 'tables/index.php'; // Load table creation functions
+    // require_once 'database/index.php';    // Get DB connection (sets up DB if needed)
+    // require_once 'tables/index.php'; // Load table creation functions
     
+    require_once 'init.php';
+
     // Get the connection (runs DB setup if needed)
     $conn = setupDatabase();
-    
+
+    // define('APP_ROOT', dirname(__DIR__)); 
+    // echo APP_ROOT;
     // Set up specific tables by calling functions
     createUsersTable($conn);  // Creates 'users' if not exists
     // createListsTable($conn);  // Creates 'lists' if not exists
@@ -16,10 +20,21 @@
     
     // For this application 
     $errors = [
-        'login' => $_SESSION['login_error'] ?? '', //  ?? Null Coalescing Operator.
-        "register" => $_SESSION['register'] ?? ""
+        'login' => $_SESSION['login_error'] ?? "", //  ?? Null Coalescing Operator.
+        "register" => $_SESSION['register_error'] ?? ""
     ];
     $active_form = $_SESSION['active_form'] ?? "login";
+
+    // echo $active_form;
+    
+    if(isset($_SESSION['email'])){
+        if($_SESSION['role'] === "admin"){
+            header("Location: pages/admin.php");
+        }else if($_SESSION['role'] === "user"){
+            header("Location: pages/user.php");
+        }
+        exit();
+    }
 
     session_unset(); // this removes all session variables, but note that session itself is still active.
 

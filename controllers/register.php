@@ -1,11 +1,12 @@
-<!-- /controller/register.php -->
+<!-- auth_site/controller/register.php -->
 <?php 
 
     session_start(); // The session_start() function in PHP initializes a new session or resumes an existing one. It is crucial for managing user data across multiple page requests on a website.
     // It allows user to store session data and retrieve session data on and from server
     // Get DB connection (sets up DB if needed)
-    require_once 'index.php'; // require_once will issue a fatal error and the script will terminate immediately.
-
+    // require_once 'database/index.php'; // require_once will issue a fatal error and the script will terminate immediately.
+    
+    include '../init.php'; //  Get DB connection (sets up DB if needed)
     
     // Get the connection (runs DB setup if needed)
     $conn = setupDatabase();
@@ -43,7 +44,7 @@
             $stmt->execute();
         }
 
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit();
     }
 ?>

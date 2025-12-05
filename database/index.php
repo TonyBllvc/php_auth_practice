@@ -2,7 +2,7 @@
 <?php
 
 // require_once will issue a fatal error and the script will terminate immediately.
-require_once 'config/index.php'; // Load shared config
+include 'config/index.php'; // Load shared config
 
 // 2. Function to set up DB and return connection
 function setupDatabase() {
